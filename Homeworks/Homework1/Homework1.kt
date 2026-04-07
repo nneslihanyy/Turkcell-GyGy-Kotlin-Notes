@@ -3,6 +3,7 @@ fun main() {
     var kayitliKullanici: String? = null
     var kayitliSifre: String? = null
     var bakiye = 0.0
+    val islemGecmisi = mutableListOf<String>()
 
     while (true) {
 
@@ -47,26 +48,32 @@ fun main() {
 
                     //  BANKA MENÜSÜ
                     while (true) {
-                        println("\n--- BANKA MENÜ ---")
+                        println("\n --- BANKA MENÜ --- ")
                         println("1- Bakiye Görüntüle")
                         println("2- Para Yatır")
                         println("3- Para Çek")
-                        println("4- Çıkış Yap")
+                        println("4- Para Transferi")
+                        println("5- Hesap Özeti")
+                        println("6- Çıkış Yap")
 
                         print("Seçiminiz: ")
                         val islem = readLine()?.toIntOrNull()
 
                         when (islem) {
 
-                            1 -> bakiyeGoster(bakiye)
+                            1 -> {
+                                bakiyeGoster(bakiye)
+                                islemGecmisi.add("Bakiye görüntülendi")
+                            }
 
                             2 -> {
                                 print("Yatırılacak miktar: ")
                                 val miktar = readLine()?.toDoubleOrNull()
 
-                                if (miktar != null && miktar > 0)
+                                if (miktar != null && miktar > 0) {
                                     bakiye = paraYatir(bakiye, miktar)
-                                else
+                                    islemGecmisi.add("$miktar TL yatırıldı")
+                                } else
                                     println("Geçersiz miktar!")
                             }
 
@@ -74,14 +81,33 @@ fun main() {
                                 print("Çekilecek miktar: ")
                                 val miktar = readLine()?.toDoubleOrNull()
 
-                                if (miktar != null && miktar > 0)
+                                if (miktar != null && miktar > 0) {
+                                    val oncekiBakiye = bakiye
                                     bakiye = paraCek(bakiye, miktar)
-                                else
+                                    if (bakiye != oncekiBakiye) islemGecmisi.add("$miktar TL çekildi")
+                                } else
                                     println("Geçersiz miktar!")
                             }
 
                             4 -> {
-                                println("Hesaptan çıkış yapıldı.")
+                                print("Alıcı IBAN: ")
+                                val iban = readLine()
+                                print("Transfer miktarı: ")
+                                val miktar = readLine()?.toDoubleOrNull()
+
+                                if (iban != null && iban.isNotEmpty() && miktar != null && miktar > 0) {
+                                    bakiye = paraTransferi(bakiye, miktar, iban)
+                                    if (bakiye >= 0) islemGecmisi.add("$miktar TL -> $iban")
+                                } else
+                                    println("Geçersiz bilgi!")
+                            }
+
+                            5 -> {
+                                hesapOzeti(kayitliKullanici ?: "", bakiye, islemGecmisi)
+                            }
+
+                            6 -> {
+                                println("Hesaptan çıkış yapıldı. ")
                                 break
                             }
 
@@ -117,10 +143,36 @@ fun paraYatir(bakiye: Double, miktar: Double): Double {
 
 fun paraCek(bakiye: Double, miktar: Double): Double {
     return if (miktar <= bakiye) {
-        println("$miktar TL çekildi.")
+        println("$miktar TL çekildi. ")
         bakiye - miktar
     } else {
-        println("Yetersiz bakiye!")
+        println("Yetersiz bakiye! ")
         bakiye
     }
+}
+
+fun paraTransferi(bakiye: Double, miktar: Double, iban: String): Double {
+    return if (miktar <= bakiye) {
+        println("$miktar TL -> $iban adresine transfer edildi.")
+        bakiye - miktar
+    } else {
+        println("Yetersiz bakiye! Transfer yapılamadı. ")
+        bakiye
+    }
+}
+
+fun hesapOzeti(kullaniciAdi: String, bakiye: Double, islemGecmisi: List<String>) {
+    println("\n=== HESAP ÖZETİ ===")
+    println("Kullanıcı: $kullaniciAdi")
+    println(" Bakiye: $bakiye TL")
+    println("Toplam işlem sayısı: ${islemGecmisi.size}")
+    if (islemGecmisi.isNotEmpty()) {
+        println("Son işlemler:")
+        islemGecmisi.takeLast(5).forEachIndexed { index, islem ->
+            println("   ${index + 1}. $islem")
+        }
+    } else {
+        println("Henüz işlem yapılmadı.")
+    }
+    println("=====================")
 }

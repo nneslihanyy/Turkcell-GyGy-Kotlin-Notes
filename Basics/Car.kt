@@ -73,3 +73,13 @@ fun main() {
    // car2.rent() // The car is rented  0 çıktısı verir çünkü brand, model ve year değerleri boş ve sıfır olarak atanmıştır
 }
 
+/*
+1 hafta var => haftaya salı 18.30a kadar
+OOP Konseptlerini
+Encapsulation (Kapsülleme),
+Abstraction (Soyutlama),
+Inheritance (Kalıtım),
+Polymorphism (Çok Biçimlilik)
+ terimlerini bir markdown dosyasında açıklayınız ve örneklerle anlatınız.
+ referanslarla .kt dosyalarını readme de belirtin, OOP konseptlerini kullanarak anlatımı güçlendiriniz.
+*/

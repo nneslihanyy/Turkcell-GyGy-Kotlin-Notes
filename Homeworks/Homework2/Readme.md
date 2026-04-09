@@ -79,13 +79,13 @@ Bu yaklaşımda:
 
 Bu örnekte bir banka hesabı üzerinden kapsülleme gösterilmektedir.
 
-Kod dosyası: [encapsulation.kt](./src/encapsulation.kt)
+Kod dosyası: [Encapsulation.kt](Encapsulation.kt)
 
 ---
 
 ### Verinin Gizlenmesi (private)
 
-Referans: [encapsulation.kt](./src/encapsulation.kt) 2. satır
+Referans: [Encapsulation.kt](Encapsulation.kt#L2) 2. satır
 
 ```kotlin
 class BankAccount(private var balance: Double)
@@ -99,7 +99,7 @@ class BankAccount(private var balance: Double)
 
 ### Kontrollü Veri Güncelleme (deposit)
 
-Referans: [encapsulation.kt](./src/encapsulation.kt) 4-11. satırlar
+Referans: [Encapsulation.kt](Encapsulation.kt#L4-L12) 4-11. satırlar
 
 ```kotlin
 fun deposit(amount: Double) {                  
@@ -119,7 +119,7 @@ fun deposit(amount: Double) {
 
 ### Güvenli Para Çekme (withdraw)
 
-Referans: [encapsulation.kt](./src/encapsulation.kt) 13-20. satırlar
+Referans: [Encapsulation.kt](Encapsulation.kt#L13-L21) 13-20. satırlar
 
 ```kotlin
  fun withdraw(amount: Double) {                 
@@ -139,7 +139,7 @@ Referans: [encapsulation.kt](./src/encapsulation.kt) 13-20. satırlar
 
 ### Veriye Kontrollü Erişim (getter)
 
-Referans: [encapsulation.kt](./src/encapsulation.kt) 22-24. satırlar
+Referans: [Encapsulation.kt](Encapsulation.kt#L22-L25) 22-24. satırlar
 
 ```kotlin
 fun getBalance(): Double {
